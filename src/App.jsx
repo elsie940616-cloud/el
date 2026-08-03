@@ -1,13 +1,15 @@
+import { lazy, Suspense } from "react";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import Gallery from "./pages/Gallery";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import BubbleField from "./pages/BubbleField";
-import DiaryCalendar from "./pages/DiaryCalendar";
-import PoemFlow from "./pages/PoemFlow";
-import Reunion from "./pages/Reunion";
-import YinYang from "./pages/YinYang";
+
+const Home = lazy(() => import("./pages/Home"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const BubbleField = lazy(() => import("./pages/BubbleField"));
+const DiaryCalendar = lazy(() => import("./pages/DiaryCalendar"));
+const PoemFlow = lazy(() => import("./pages/PoemFlow"));
+const Reunion = lazy(() => import("./pages/Reunion"));
+const YinYang = lazy(() => import("./pages/YinYang"));
 
 function App() {
   return (
@@ -26,17 +28,19 @@ function App() {
 
       {/* 页面内容 */}
       <main className="min-h-screen bg-white text-gray-800">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/BubbleField" element={<BubbleField />} />
-          <Route path="/diary" element={<DiaryCalendar />} />
-          <Route path="/poem" element={<PoemFlow />} />
-          <Route path="/yinyang" element={<YinYang />} />
-          <Route path="/reunion" element={<Reunion />} />
-        </Routes>
+        <Suspense fallback={<div className="min-h-screen bg-white" aria-label="页面加载中" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/BubbleField" element={<BubbleField />} />
+            <Route path="/diary" element={<DiaryCalendar />} />
+            <Route path="/poem" element={<PoemFlow />} />
+            <Route path="/yinyang" element={<YinYang />} />
+            <Route path="/reunion" element={<Reunion />} />
+          </Routes>
+        </Suspense>
       </main>
 
       {/* 底部 */}
